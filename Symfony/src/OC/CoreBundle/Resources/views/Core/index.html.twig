@@ -1,0 +1,44 @@
+{#Page d'accueil#}
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  <h2>Page d'accueil</h2>
+  
+  <p>
+      {# On affiche tous les messages flash dont le nom est « info » #}
+      {% for message in app.session.flashbag.get('info') %}
+        <p class="alert alert-info">Message flash : {{ message }}</p>
+      {% endfor %}
+  </p>
+
+  <h3>Les 3 dernières annonces</h3>
+  
+  <hr>
+  
+  <ul>
+    {% for advert in listAdverts %}
+      <li>
+        <a href="{{ path('oc_platform_view', {'id': advert.id}) }}">
+          {{ advert.title }}
+        </a>
+        par {{ advert.author }},
+        le {{ advert.date|date('d/m/Y') }}
+      </li>
+    {% else %}
+      <li>Pas (encore !) d'annonces</li>
+    {% endfor %}
+  </ul>
+  
+  <br /> 
+  <h3>Les 3 derniers messages du forum</h3>
+  
+  <hr>
+  
+  <p>Ici par exemple les derniers messages du forum ...</p>
+
+{% endblock %}
